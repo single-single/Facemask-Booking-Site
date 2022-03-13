@@ -1,0 +1,75 @@
+body {
+    font-family: "Lucida Grande";
+}
+
+#home {
+    margin: 15px;
+}
+
+#logo {
+    margin-top: -40px;
+    margin-bottom: 25px;
+}
+
+#register {
+    display:inline;
+    text-align: center;
+}
+
+#register span {
+    font-size: 16px;
+}
+
+#register p {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 17px;
+}
+
+#register input {
+    outline-style: none;
+    margin-bottom: 13px;
+    border: 1px solid #1A1A1A;
+    border-radius: 12px;
+    padding:6px 0px;
+    width: 190px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#register select {
+    outline-style: none;
+    margin-bottom: 13px;
+    border: 1px solid #1A1A1A;
+    border-radius: 12px;
+    padding:6px 0px;
+    width: 190px;
+    font-size: 14px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#rgs_btn button {
+    background: #F0F0F0;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-width: 0px;
+    padding: 4px 9px 4px 9px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#rgs_btn button:hover {
+    background:#ADD8E6;
+}
+
+#sign_in a {
+    color: #20B2AA;
+    text-decoration: none;
+    overflow: hidden;
+}
+

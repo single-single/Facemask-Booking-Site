@@ -1,0 +1,85 @@
+body {
+    font-family: "Lucida Grande";
+}
+
+#nav {
+    margin: 20px;
+    padding: 0;
+}
+
+#nav ul {
+    margin: 0 5px;
+    font-size:18px;
+    list-style-type: none;
+    white-space:nowrap;
+    overflow: hidden;
+}
+
+#nav li {
+    float: right;
+    display: inline;
+    text-align: right;
+    padding: 0 14px;
+    margin: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+#nav li a {
+    color: #1A1A1A;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+#nav ul li .first:hover {
+    background-color: #E8E8E8;
+}
+
+#nav ul li #sign-up {
+    margin-right: 0.4px;
+    width: 74px;
+}
+
+#nav ul li #sign-in {
+    margin-right: -0.2px;
+    width: 166px;
+}
+
+#nav ul li ul {
+    position: relative;
+    display: none;
+}
+
+#nav ul li:hover ul {
+    background-color: #E8E8E8;
+    display: block;
+}
+
+#nav ul li ul li:hover {
+    background-color: #A9A9A9;
+    display: block;
+}
+
+#logo img{
+    margin-top: -50px;
+}
+
+#welcome {
+    text-align: center;
+}
+
+#welcome img {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#mask {
+    font-size: 18px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+#mask img {
+    vertical-align: middle;
+    margin: 20px 120px;
+}

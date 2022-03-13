@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>quota</title>
+    <link rel = "stylesheet" type = "text/css" href = "sales_rep.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="logo">
+        <a href="main.html"><img src="image/logo.jpg" width="15%"/></a>
+    </div>
+    <HR align=center width="100%" color=#1A1A1A SIZE=1>
+
+    <div id="order">
+        <a href="sales_rep.html"><img src="image/order.png" width="5%"/></a>
+        <a href="sales_rep.html">My Order</a>
+    </div>
+
+    <p class="intro_q">The following is your remaining quota: </p>
+    <div>
+        <table id="remain_q"></table>
+    </div>
+    <p class="intro_q">The following are your quota application records: </p>
+    <div>
+        <table id="record_q"></table>
+    </div>
+
+    <p class="intro_q">Please select the type and quantity of quota you want to apply for: </p>
+    <span id="alert_q"></span>
+    <table id="apply_table">
+        <tr>
+            <td align="center"><img src="image/N95 respirators.jpg" width="160" class="mask"/><p class="mask_type">N95 respirator</p></td>
+            <td align="center"><img src="image/surgical masks.jpg" width="190" class="mask"/><p class="mask_type">surgical mask</p></td>
+            <td align="center"><img src="image/surgical N95 respirators.jpg" width="170" class="mask"/><p class="mask_type">surgical N95 respirator</p></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <select class="amount" id="amount1">
+                    <option>-Quantity-</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                </select>
+            </td>
+            <td align="center">
+                <select class="amount" id="amount2">
+                    <option>-Quantity-</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                </select>
+            </td>
+            <td align="center">
+                <select class="amount" id="amount3">
+                    <option>-Quantity-</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br> <button id="apply">Apply</button>
+
+    <script>
+
+        function printQuota(arr){
+            var table = "<tr> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printApplication(arr){
+            var table = "<tr> <th>id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>status</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function isSelect() {
+            var int1 = document.getElementById("amount1").value;
+            var int2 = document.getElementById("amount2").value;
+            var int3 = document.getElementById("amount3").value;
+            if (int1=="-Quantity-" && int2=="-Quantity-" && int3=="-Quantity-") {
+                document.getElementById("alert_q").innerHTML = "Please select the quantity you want to apply for.".fontcolor("red");
+                return false;
+            } else {
+                document.getElementById("alert_q").innerHTML = "";
+                return true;
+            }
+        }
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_quota_rep.php",
+            success:function(data){
+                document.getElementById("remain_q").innerHTML = printQuota(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_application.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("record_q").innerHTML = "You currently have no quota application records.";
+                } else {
+                    document.getElementById("record_q").innerHTML = printApplication(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        document.getElementById("apply").onclick = function() {
+            var quota1 = document.getElementById("amount1").value;
+            var quota2 = document.getElementById("amount2").value;
+            var quota3 = document.getElementById("amount3").value;
+            if (isSelect()) {
+                $.ajax({
+                    type:"POST",
+                    url:"quota_apply.php",
+                    dataType:"JSON",
+                    data:{
+                        "quota1": quota1,
+                        "quota2": quota2,
+                        "quota3": quota3,
+                    },
+                    success:function(data){
+                        if (data == 1) {
+                            document.getElementById("alert_q").innerHTML = "The application is successful. Please wait for the manager's approval.".fontcolor("green");
+                        } else {
+                            alert("Unexpected error.");
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+
+    </script>
+
+</body>
+</html>

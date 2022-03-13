@@ -1,0 +1,289 @@
+body {
+    font-family: "Lucida Grande";
+}
+
+#logo {
+    text-align: center;
+}
+
+HR {
+    margin-bottom: 30px;
+}
+
+#success_ {
+    font-size: 20px;
+    text-align: center;
+}
+
+#welcome {
+    font-size: 26px;
+    font-weight: bold;
+    margin-left: 70px;
+    margin-top: 60px;
+}
+
+div a {
+    color: #1A1A1A;
+    font-size: 17px;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+#order {
+    text-align: right;
+    margin-top: -100px;
+    margin-bottom: 75px;
+    margin-right: 30px;
+}
+
+#order a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+#buy {
+    text-align: right;
+    margin-top: -13px;
+    margin-right: 35px;
+}
+
+#buy a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+#input1 {
+    position: absolute;
+    top: 240px;
+    left: 190px;
+    width: 650px;
+    height: 900px;
+    overflow: scroll;
+}
+
+#input2 {
+    position: absolute;
+    top: 240px;
+    left: 950px;
+    width: 700px;
+    height: 900px;
+    overflow: scroll;
+}
+
+#prompt1 {
+    margin-left: 30px;
+    margin-bottom: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#prompt2 {
+    margin-bottom: 70px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#amount .mask {
+    margin-bottom: 50px;
+}
+
+#amount input {
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 15px;
+    padding:7px 0px;
+    width: 180px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#reps {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+}
+
+#reps th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#reps td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+#reps tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+#reps tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#select {
+    margin-top: 35px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 15px;
+    padding:5px 0px;
+    width: 170px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#input2 button {
+    background: #F0F0F0;
+    margin-top: 70px;
+    margin-left: 10px;
+    border-width: 0px;
+    padding: 5px 20px 5px 20px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#input2 button:hover {
+    background:#ADD8E6;
+}
+
+.intro {
+    font-size: 22px;
+    margin-left: 245px;
+    margin-top: 40px;
+}
+
+#ords {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+    margin: 50px auto;
+}
+
+#ords th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#ords td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+#ords tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+#ords tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#cancel {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+    margin: 40px auto;
+}
+
+#cancel th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#cancel td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+#cancel tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+#cancel tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#ids {
+    margin-top: 15px;
+    margin-left: 245px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 10px;
+    padding:5px 0px;
+    width: 180px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#go {
+    background: #E8E8E8;
+    margin-left: 35px;
+    border-width: 0px;
+    padding: 4px 12px 4px 12px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#go:hover {
+    background:#ADD8E6;
+}
+
+#alert {
+    margin-left: 245px;
+    font-size: 18px;
+}
+
+#logout {
+    position: absolute;
+    top: 1120px;
+    left: 1550px;
+    background: #E8E8E8;
+    border-width: 0px;
+    padding: 5px 15px 5px 15px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#logout:hover {
+    background:#ADD8E6;
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sales rep</title>
+    <link rel = "stylesheet" type = "text/css" href = "sales_rep.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="logo">
+        <a href="main.html"><img src="image/logo.jpg" width="15%"/></a>
+    </div>
+    <HR align=center width="100%" color=#1A1A1A SIZE=1>
+
+    <p id="welcome">Welcome, <span id="name"></span>.</p>
+    <div id="quota">
+        <a href="quota_rep.html"><img src="image/order.png" width="5%"/></a>
+        <a href="quota_rep.html">My Quota</a>
+    </div>
+
+    <p class="intro">Please select the operation you want to perform: </p>
+    <div id="operation">
+        <div id="alert_div"><span id="alert"></span></div>
+        <table id="op">
+            <tr>
+                <td>Operation: </td>
+                <td>Transaction id: </td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="ops">
+                        <option>-Select-</option>
+                        <option>Carry Out</option>
+                        <option>Cancel</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="ids"></select>
+                </td>
+            </tr>
+        </table>
+        <br> <button id="go">Go</button>
+    </div>
+    <p class="intro">Here are the orders from your customers: </p>
+    <div>
+        <table id="ords"></table>
+    </div>
+    <p class="intro">The following are the cancelled orders: </p>
+    <div>
+        <table id="cancel"></table>
+    </div>
+
+    <button id="logout" onclick="logout()">Logout</button>
+
+    <script>
+
+        function printTable(arr){
+            var table = "<tr> <th>id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>customer</th> <th>time</th> <th>status</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printTable_can(arr){
+            var table = "<tr> <th>id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>customer</th> <th>time</th> <th>cancellation</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printOption(arr){
+            var option = "<option>-Select-</option>";
+            for(var i in arr){
+                option += "<option>" + arr[i] + "</option>";
+            }
+            return option
+        }
+
+        function diffTime(id) {
+            var diff = "";
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"time_diff.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data){
+                    diff = data;
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+            return diff
+        }
+
+        function isCompleted(id) {
+            var complete = "";
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"order_completed.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data){
+                    complete = data;
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+            return complete
+        }
+
+        function isExceed(id) {
+            var exceed = "";
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"quota_exceed.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data){
+                    exceed = data;
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+            return exceed
+        }
+
+        function finish_order(id) {
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"order_finish.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data){
+                    if (data == 0) {
+                        document.getElementById("alert").innerHTML = "The transaction was successful.".fontcolor("green");
+                    } else {
+                        alert("Unexpected error.");
+                    }
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+
+        function cancel_order(id) {
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"order_cancel_rep.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data) {
+                    if (data == 0) {
+                        document.getElementById("alert").innerHTML = "Cancel success.".fontcolor("green");
+                    } else {
+                        alert("Unexpected error.");
+                    }
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+
+        function logout() {
+            $.ajax ({
+                type:"POST",
+                url:"logout.php",
+                dataType:"TEXT",
+                success:function(data){
+                    window.location.replace("./main.html");
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+        
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"name_rep.php",
+            success:function(data) {
+                document.getElementById("name").innerHTML = data;
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"order_rep.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("ords").innerHTML = "You currently have no order records.";
+                } else {
+                    document.getElementById("ords").innerHTML = printTable(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"order_rep_cancel.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("cancel").innerHTML = "You currently have no record of cancelled orders.";
+                } else {
+                    document.getElementById("cancel").innerHTML = printTable_can(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"order_id_rep.php",
+            success:function(data){
+                document.getElementById("ids").innerHTML = printOption(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        document.getElementById("go").onclick = function() {
+            var op = document.getElementById("ops").value;
+            var id = document.getElementById("ids").value;
+            if (op == "-Select-") {
+                document.getElementById("alert").innerHTML = "Please select an operation.".fontcolor("red");
+            }  else if (id == "-Select-") {
+                document.getElementById("alert").innerHTML = "Please select an id.".fontcolor("red");
+            } else if (isCompleted(id) == 1) {
+                document.getElementById("alert").innerHTML = "The order has been completed and you can no longer operate.".fontcolor("red");
+            } else {
+                if (op == "Carry Out") {
+                    if (isExceed(id) == 1) {
+                        document.getElementById("alert").innerHTML = "Transaction failed. The order exceeds the quota.".fontcolor("red");
+                    } else {
+                        finish_order(id);
+                    }
+                } else if (op == "Cancel") {
+                    if (isExceed(id) == 1) {
+                        if (diffTime(id) == 1) {
+                            finish_order(id);
+                            document.getElementById("alert").innerHTML = "The order has exceeded 24 hours, please wait for the manager to process.".fontcolor("red");
+                        } else {
+                            cancel_order(id);
+                        }
+                    } else {
+                        document.getElementById("alert").innerHTML = "Unable to cancel, the order did not exceed the quota.".fontcolor("red");
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

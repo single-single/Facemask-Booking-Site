@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel = "stylesheet" type = "text/css" href = "login.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="home">
+        <a href="main.html"><img src="image/home.png" width="2%"/></a>
+    </div>
+    <div id="logo">
+        <img src="image/logo.jpg" width="25%"/>
+    </div>
+
+    <div id="box">
+        <span id="span"></span>
+        <p>username</p>
+        <input type="text" id="username"/>
+        <p>password</p>
+        <input type="password" id="password"/>
+        <br />
+        <button id="button_lg">Sign in</button>
+        <p>
+            Don't have an account yet? <a href="register.html">Register now</a>
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById("button_lg").onclick = function() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            if (username=="" || password=="") {
+                document.getElementById("span").innerHTML = "Username or password cannot be empty.".fontcolor("red");
+            } else {
+                document.getElementById("span").innerHTML = "";
+                $.ajax ({
+                    type:"POST",
+                    url:"login_cus.php",
+                    data:{
+                        "username": username,
+                        "password": password,
+                    },
+                    success:function(data){
+                        switch(data){
+                            case 1:
+                                document.getElementById("span").innerHTML = "Invalid Login or password.".fontcolor("red");
+                                break;
+                            case 2:
+                                document.getElementById("span").innerHTML = "";
+                                window.location.href="customer.html"
+                                break;
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+    </script>
+
+</body>
+</html>

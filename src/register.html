@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <link rel = "stylesheet" type = "text/css" href = "register.css">
+    <script type="text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="home">
+        <a href="main.html"><img src="image/home.png" width="2%"/></a>
+    </div>
+    <div id="register">
+        <div id="logo">
+            <img src="image/logo.jpg" width="17%"/>
+            <br> <span id="logospan"></span>
+        </div>
+
+        <div>
+            <p>Username</p>
+            <input type="text" id="username"/>
+            <br> <span id="usernamespan"></span>
+        </div>
+
+        <div>
+            <p>Real Name</p>
+            <input type="text" id="realrname"/>
+            <br> <span id="realnamespan"></span>
+        </div>
+
+        <div>
+            <p>Passport ID</p>
+            <input type="text" id="passportid"/>
+            <br> <span id="passportidspan"></span>
+        </div>
+
+        <div>
+            <p>Telephone Number</p>
+            <input type="text" id="telephone"/>
+            <br> <span id="telephonespan"></span>
+        </div>
+
+        <div>
+            <p>Region</p>
+            <select id="region">
+                <option>-Select-</option>
+                <option>China</option>
+                <option>Italy</option>
+                <option>Japan</option>
+                <option>Spain</option>
+                <option>UK</option>
+                <option>Other</option>
+            </select>
+            <br> <span id="regionspan"></span>
+        </div>
+
+        <div>
+            <p>Email</p>
+            <input type="text" id="email"/>
+            <br> <span id="emailspan"></span>
+        </div>
+
+        <div>
+            <p>Password</p>
+            <input type="password" id="password" placeholder="At least 8 characters"/>
+            <br> <span id="passwordspan"></span>
+        </div>
+
+        <div id="rgs_btn">
+            <button type="submit" id="button_rgs">Register</button>
+        </div>
+
+        <p id="sign_in">
+            Already have an account? <a href="login_cus.html">Log in now</a>
+        </p>
+    </div>
+
+    <script type="text/javascript">
+
+        function isUsername() {
+            var username = document.getElementById("username").value;
+            var usernamespan = document.getElementById("usernamespan");
+            if (username == "") {
+                usernamespan.innerHTML = "This field is required.".fontcolor("red");
+                return false;
+            } else {
+                usernamespan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function isName() {
+            var realname = document.getElementById("realrname").value;
+            var namereg = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/
+            var namespan = document.getElementById("realnamespan");
+            if (realname == "") {
+                namespan.innerHTML = "This field is required.".fontcolor("red");
+                return false;
+            } else if (!namereg.test(realname)) {
+                namespan.innerHTML = "Please enter your name correctly in English.".fontcolor("red");
+                return false;
+            } else {
+                namespan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function isPassport() {
+            var passportid = document.getElementById("passportid").value;
+            var psptreg = /(^[EeKkGgDdSsPpHh]\d{8}$)|(^(([Ee][a-fA-F])|([DdSsPp][Ee])|([Kk][Jj])|([Mm][Aa])|(1[45]))\d{7}$)/;
+            var psptspan = document.getElementById("passportidspan");
+            if (passportid == "") {
+                psptspan.innerHTML = "This field is required.".fontcolor("red");
+                return false;
+            } else if (!psptreg.test(passportid)) {
+                psptspan.innerHTML = "Please provide a valid passport id.".fontcolor("red");
+                return false;
+            } else {
+                psptspan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function isTel() {
+            var telephone = document.getElementById("telephone").value;
+            var telreg = /^\d{9,}$/;
+            var telspan = document.getElementById("telephonespan");
+            if (telephone == "") {
+                telspan.innerHTML = "This field is required.".fontcolor("red");
+                return false;
+            } else if (!telreg.test(telephone)) {
+                telspan.innerHTML = "Phone number must consist of more than nine digits.".fontcolor("red");
+                return false;
+            } else {
+                telspan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function isRegion() {
+            var region = document.getElementById("region").value;
+            var regionspan = document.getElementById("regionspan");
+            if (region == "-Select-") {
+                regionspan.innerHTML = "Please select your region.".fontcolor("red");
+                return false;
+            } else {
+                regionspan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function isEmail() {
+            var email = document.getElementById("email").value;
+            var emailreg= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var emailspan = document.getElementById("emailspan");
+            if (email == "") {
+                emailspan.innerHTML = "This field is required.".fontcolor("red");
+                return false;;
+            } else if (!emailreg.test(email)) {
+                emailspan.innerHTML = "Please provide a valid email address.".fontcolor("red");
+                return false;
+            } else {
+                emailspan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function isPsw() {
+            var password = document.getElementById("password").value;
+            var pswreg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/;
+            var pswspan = document.getElementById("passwordspan");
+            if (password == "") {
+                pswspan.innerHTML = "This field is required.".fontcolor("red");
+                return false;
+            } else if (!pswreg.test(password)) {
+                pswspan.innerHTML = "The password should be between 8-20 in length and contain at least letters and numbers.".fontcolor("red");
+                return false;
+            } else {
+                pswspan.innerHTML = "";
+                return true;
+            }
+        }
+
+        function validation() {
+            isUsername();
+            isName();
+            isPassport();
+            isTel();
+            isRegion();
+            isEmail();
+            isPsw();
+            return(isUsername() && isName() && isPassport() && isTel() && isRegion() && isEmail() && isPsw());
+        }
+
+        document.getElementById("button_rgs").onclick = function() {
+            var username = document.getElementById("username").value;
+            var realname = document.getElementById("realrname").value;
+            var passportid = document.getElementById("passportid").value;
+            var telephone = document.getElementById("telephone").value;
+            var region = document.getElementById("region").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            if (validation()) {
+                $.ajax({
+                    type:"POST",
+                    url:"register.php",
+                    dataType:"JSON",
+                    data:{
+                        "username": username,
+                        "realname": realname,
+                        "passportid": passportid,
+                        "telephone": telephone,
+                        "region": region,
+                        "email": email,
+                        "password": password,
+                    },
+                    success:function(data){
+                        switch(data){
+                            case 1:
+                                document.getElementById("logospan").innerHTML = "Username is already taken.".fontcolor("red");
+                                break;
+                            case 2:
+                                document.getElementById("logospan").innerHTML = "";
+                                alert("Registration success.");
+                                window.location.href="login_cus.html"
+                                break;
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+    </script>
+</body>
+</html>

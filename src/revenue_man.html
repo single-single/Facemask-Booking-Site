@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>revenue</title>
+    <link rel = "stylesheet" type = "text/css" href = "manager.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="logo">
+        <a href="main.html"><img src="image/logo.jpg" width="15%"/></a>
+    </div>
+    <HR align=center width="100%" color=#1A1A1A SIZE=1>
+
+    <div id="quota">
+        <a href="manager.html"><img src="image/order.png" width="5%"/></a>
+        <a href="manager.html">My Quota</a>
+    </div>
+
+    <p class="intro">The following is the general information on selling masks: </p>
+    <div>
+        <table id="general" class="information"></table>
+    </div>
+
+    <p class="intro">The following are the masks sold by specific sales representatives: </p>
+    <div>
+        <table id="sales_rep" class="information"></table>
+    </div>
+
+    <p class="intro">The following is the sales of masks in different regions: </p>
+    <div>
+        <table id="region" class="information"></table>
+    </div>
+
+    <p class="intro">The following is the sales of masks in the past few weeks: </p>
+    <div>
+        <table id="weeks" class="information"></table>
+    </div>
+
+    <p class="intro">The following is statistical information about customers: </p>
+    <p id="view">
+        View customer statistics for the past
+        <select id="week">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+        weeks
+        <button id="go">Go</button>
+    </p>
+    <div>
+        <table id="statistics" class="information">
+            <tr>
+                <th>total customers</th> <th>Weekly customers</th> <th>daily customers</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+
+        function printGeneral(arr) {
+            var table = "<tr> <th>total amount</th> <th>total revenue</th> <th>masks under ordering</th> </tr>";
+            table += "<tr>";
+            for(var i in arr){
+                table += "<td>" + arr[i] + "</td>";
+            }
+            table += "</tr>";
+            return table
+        }
+
+        function printReps(arr) {
+            var table = "<tr> <th>sales rep</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printRegions(arr) {
+            var table = "<tr> <th>region</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printWeeks(arr) {
+            var table = "<tr> <th>weeks</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printStatistics(arr) {
+            var table = "<tr> <th>total customers</th> <th>Weekly customers</th> <th>daily customers</th> </tr>";
+            table += "<tr>";
+            for(var i in arr){
+                table += "<td>" + arr[i] + "</td>";
+            }
+            table += "</tr>";
+            return table
+        }
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_general.php",
+            success:function(data){
+                document.getElementById("general").innerHTML = printGeneral(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_sales_rep.php",
+            success:function(data){
+                document.getElementById("sales_rep").innerHTML = printReps(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_regions.php",
+            success:function(data){
+                document.getElementById("region").innerHTML = printRegions(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_weeks.php",
+            success:function(data){
+                document.getElementById("weeks").innerHTML = printWeeks(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        document.getElementById("go").onclick = function() {
+            var week = document.getElementById("week").value;
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"list_statistics.php",
+                data:{
+                    "week": week,
+                },
+                success:function(data){
+                    document.getElementById("statistics").innerHTML = printStatistics(data);
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+body {
+    font-family: "Lucida Grande";
+}
+
+#home {
+    margin: 15px;
+}
+
+#logo {
+    text-align: center;
+    margin-top: 95px;
+}
+
+#box {
+    margin: 55px auto;
+    text-align: center;
+}
+
+#box span {
+    font-size: 18px;
+}
+
+#box p {
+    font-size: 20px;
+}
+
+#box p a {
+    color: #20B2AA;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+#box input {
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 15px;
+    padding:10px 0px;
+    width: 240px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#box button {
+    background: #F0F0F0;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-width: 0px;
+    padding: 4px 9px 4px 9px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#box button:hover {
+    background:#ADD8E6;
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>customer</title>
+    <link rel = "stylesheet" type = "text/css" href = "customer.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="logo">
+        <a href="main.html"><img src="image/logo.jpg" width="15%"/></a>
+    </div>
+    <HR align=center width="100%" color=#1A1A1A SIZE=1>
+    <div id="success_"><span id="success"></span></div>
+    <p id="welcome">Welcome, <span id="name"></span>.</p>
+    <div id="order">
+            <a href="order_cus.html"><img src="image/order.png" width="5%"/></a>
+            <a href="order_cus.html">My Order</a>
+    </div>
+
+    <div id="input1">
+        <p id="prompt1">Please fill in the quantity you want to buy: </p>
+        <table id="amount">
+            <tr>
+                <td align="center"><img src="image/N95 respirators.jpg" width="180"/><p class="mask">N95 respirator ($3)</p></td>
+                <td align="center"><p>Quantity: </p><input type="text" id="int1"/><span id="N95"></span></td>
+            </tr>
+            <tr>
+                <td align="center"><img src="image/surgical masks.jpg" width="210"/><p class="mask">surgical mask ($1)</p></td>
+                <td align="center"><p>Quantity: </p><input type="text" id="int2"/><span id="surgical"></span></td>
+            </tr>
+            <tr>
+                <td align="center"><img src="image/surgical N95 respirators.jpg" width="190"/><p class="mask">surgical N95 respirator ($5)</p></td>
+                <td align="center"><p>Quantity: </p><input type="text" id="int3"/><span id="surgical_N95"></span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="input2">
+        <p id="prompt2">Please select the sales representative you want to reserve: </p>
+        <table id="reps"></table>
+        <select id="select"></select>
+        <br> <button id="buy">Buy</button>
+    </div>
+
+    <button id="logout" onclick="logout()">Logout</button>
+
+    <script>
+
+        function printTable(arr){
+            var table = "<tr> <th>name</th> <th>telephone number</th> <th>email address</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printOption(arr){
+            var option = "<option>-Select-</option>";
+            for(var i in arr){
+                option += "<option>" + arr[i] + "</option>";
+            }
+            return option
+        }
+
+        function hasRep() {
+            var table = document.getElementById("reps").rows.length;
+            if (table == 0) {
+                document.getElementById("success").innerHTML = document.getElementById("success").innerHTML = "Sorry, because there is no sales representative in your current region, you cannot purchase it for now.".fontcolor("red");
+                return false;
+            } else {
+                document.getElementById("success").innerHTML = "";
+                return true;
+            }
+        }
+
+        function isInteger() {
+            var intreg = /^\d*$/;
+            var int1 = document.getElementById("int1").value;
+            var int2 = document.getElementById("int2").value;
+            var int3 = document.getElementById("int3").value;
+            var isint1 =  intreg.test(int1);
+            var isint2 =  intreg.test(int2);
+            var isint3 =  intreg.test(int3);
+
+            if (int1 == "0" && int2 == "0" && int3 == "0") {
+                document.getElementById("success").innerHTML = "Please enter a valid quantity of masks.".fontcolor("red");
+            } else if (int1 == "" && int2 == "" && int3 == "") {
+                document.getElementById("success").innerHTML = "Please enter a valid quantity of masks.".fontcolor("red");
+            } else if (!(isint1 && isint2 && isint3)) {
+                document.getElementById("success").innerHTML = "Please enter a valid quantity of masks.".fontcolor("red");
+                return false;
+            } else {
+                document.getElementById("success").innerHTML = "";
+                return true;
+            }
+        }
+
+        function isSelect() {
+            var select = document.getElementById("select").value;
+            if (select == "-Select-") {
+                document.getElementById("success").innerHTML = "Please select the sales representative you want to reserve.".fontcolor("red");
+                return false;
+            } else {
+                document.getElementById("success").innerHTML = "";
+                return true;
+            }
+        }
+
+        function logout() {
+            $.ajax ({
+                type:"POST",
+                url:"logout.php",
+                dataType:"TEXT",
+                success:function(data){
+                    window.location.replace("./main.html");
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"name_cus.php",
+            success:function(data){
+                document.getElementById("name").innerHTML = data;
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_rep.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("reps").innerHTML = "There are no sales representatives in your current location.";
+                } else {
+                    document.getElementById("reps").innerHTML = printTable(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"name_reps.php",
+            success:function(data){
+                document.getElementById("select").innerHTML = printOption(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        document.getElementById("buy").onclick = function() {
+            var quota1 = document.getElementById("int1").value;
+            var quota2 = document.getElementById("int2").value;
+            var quota3 = document.getElementById("int3").value;
+            var name = document.getElementById("select").value;
+            if (hasRep() && isInteger() && isSelect()) {
+                $.ajax({
+                    type:"POST",
+                    url:"buy.php",
+                    dataType:"JSON",
+                    data:{
+                        "quota1": quota1,
+                        "quota2": quota2,
+                        "quota3": quota3,
+                        "name": name,
+                    },
+                    success:function(data){
+                        if (data == 1) {
+                            document.getElementById("success").innerHTML = "Successful transaction. Thank you for choosing woolin Auto.".fontcolor("green");
+                        } else {
+                            alert("Unexpected error.");
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+
+    </script>
+
+</body>
+</html>

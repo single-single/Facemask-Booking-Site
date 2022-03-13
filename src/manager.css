@@ -1,0 +1,475 @@
+body {
+    font-family: "Lucida Grande";
+}
+
+#logo {
+    text-align: center;
+}
+
+HR {
+    margin-bottom: 30px;
+}
+
+#welcome {
+    font-size: 26px;
+    font-weight: bold;
+    margin-left: 70px;
+    margin-top: 60px;
+}
+
+div a {
+    color: #1A1A1A;
+    font-size: 17px;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+#revenue {
+    text-align: right;
+    margin-top: -100px;
+    margin-bottom: 75px;
+    margin-right: 30px;
+}
+
+#revenue a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+#quota {
+    text-align: right;
+    margin-top: -13px;
+    margin-right: 30px;
+}
+
+#quota a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.intro {
+    font-size: 22px;
+    margin-left: 280px;
+    margin-top: 80px;
+}
+
+#reps {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+    margin: 50px auto;
+}
+
+#reps th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#reps td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+#reps tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+#reps tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#abnormal {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+    margin: 50px auto 20px auto;
+}
+
+#abnormal th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#abnormal td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+#abnormal tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+#abnormal tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#alert0 {
+    margin-left: 370px;
+    font-size: 17px;
+}
+
+#id_a {
+    margin-top: 20px;
+    margin-left: 370px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 10px;
+    padding:4px 0px;
+    width: 160px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#ship {
+    background: #F0F0F0;
+    margin-left: 30px;
+    border-width: 0px;
+    padding: 4px 18px 4px 18px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#ship:hover {
+    background:#ADD8E6;
+}
+
+#application {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+    margin: 50px auto 20px auto;
+}
+
+#application th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#application td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+#application tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+#application tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#alert1 {
+    margin-left: 365px;
+    font-size: 17px;
+}
+
+#ids {
+    margin-top: 20px;
+    margin-left: 360px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 10px;
+    padding:4px 0px;
+    width: 160px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#approve {
+    background: #F0F0F0;
+    margin-left: 30px;
+    border-width: 0px;
+    padding: 4px 20px 4px 20px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#approve:hover {
+    background:#ADD8E6;
+}
+
+#reject {
+    background: #F0F0F0;
+    margin-left: 15px;
+    border-width: 0px;
+    padding: 4px 20px 4px 20px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#reject:hover {
+    background:#ADD8E6;
+}
+
+#alert2 {
+    margin-left: 365px;
+    font-size: 18px;
+}
+
+#allocate_table {
+    margin-top: 10px;
+    margin-left: 180px;
+}
+
+.mask {
+    margin-left: 180px;
+}
+
+.mask_type {
+    margin-bottom: 20px;
+    margin-left: 180px;
+    font-size: 17px;
+}
+
+.amount {
+    margin-top: 15px;
+    margin-left: 180px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 12px;
+    padding:5px 0px;
+    width: 170px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#id_r {
+    margin-top: 20px;
+    margin-left: 365px;
+    outline-style: none;
+    border: 1px solid #1A1A1A;
+    border-radius: 11px;
+    padding:4px 0px;
+    width: 160px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#allocate {
+    background: #E8E8E8;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    border-width: 0px;
+    padding: 5px 15px 5px 15px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#allocate:hover {
+    background:#ADD8E6;
+}
+
+#link_ass {
+    color: #20B2AA;
+    overflow: hidden;
+}
+
+#link_ass p {
+    margin-top: 45px;
+    margin-left: 280px;
+    font-size: 22px;
+}
+
+#return {
+    text-align: right;
+    margin-top: 30px;
+    margin-right: 40px;
+}
+
+#return a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+#logo_ass {
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+#assign {
+    text-align: center;
+}
+
+#assign span {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#assign p {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 17px;
+}
+
+#assign input {
+    outline-style: none;
+    margin-bottom: 15px;
+    border: 1px solid #1A1A1A;
+    border-radius: 12px;
+    padding:6px 0px;
+    width: 190px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#assign select {
+    outline-style: none;
+    margin-bottom: 15px;
+    border: 1px solid #1A1A1A;
+    border-radius: 12px;
+    padding:6px 0px;
+    width: 190px;
+    font-size: 14px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#ass_btn button {
+    background: #F0F0F0;
+    margin-top: 25px;
+    border-width: 0px;
+    padding: 4px 9px 4px 9px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#ass_btn button:hover {
+    background:#ADD8E6;
+}
+
+#logout {
+    float: right;
+    background: #E8E8E8;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    border-width: 0px;
+    padding: 5px 15px 5px 15px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor: pointer;
+}
+
+#logout:hover {
+    background:#ADD8E6;
+}
+
+.information {
+    border-collapse: collapse;
+    border: 1px solid #1A1A1A;
+    font-size: 20px;
+    margin: 50px auto 20px auto;
+}
+
+.information th {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    background-color: #B0B0B0;
+    padding: 3px 9px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.information td {
+    border-collapse: collapse;
+    border-right: 1px solid #1A1A1A;
+    border-bottom: 1px solid #1A1A1A;
+    padding: 3px 9px;
+    text-align: center;
+}
+
+.information tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+.information tr:nth-child(odd) {
+    background-color: #F0F0F0;
+}
+
+#view {
+    font-size: 18px;
+    margin-left: 380px;
+    margin-top: 30px;
+}
+
+#week {
+    outline-style: none;
+    margin: 0px 5px;
+    border: 1px solid #1A1A1A;
+    border-radius: 10px;
+    padding:3px 0px;
+    width: 45px;
+    font-size: 14px;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+#go {
+    background: #F0F0F0;
+    margin-left: 25px;
+    border-width: 0px;
+    padding: 4px 16px 4px 16px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius:10px;
+    cursor: pointer;
+}
+
+#go:hover {
+    background:#ADD8E6;
+}

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>manager</title>
+    <link rel = "stylesheet" type = "text/css" href = "manager.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="logo">
+        <a href="main.html"><img src="image/logo.jpg" width="15%"/></a>
+    </div>
+    <HR align=center width="100%" color=#1A1A1A SIZE=1>
+
+    <p id="welcome">Welcome, <span id="name"></span>.</p>
+    <div id="revenue">
+        <a href="revenue_man.html"><img src="image/order.png" width="5%"/></a>
+        <a href="revenue_man.html">My Revenue</a>
+    </div>
+
+    <p class="intro">Here are all your sales representatives: </p>
+    <div>
+        <table id="reps"></table>
+    </div>
+
+    <p class="intro">The following are the abnormal orders waiting for you to handle: </p>
+    <div>
+        <table id="abnormal"></table>
+    </div>
+    <span id="alert0"></span> <br>
+    <select id="id_a"></select>
+    <button id="ship">Ship</button>
+
+    <p class="intro">The following are your pending quota applications: </p>
+    <div>
+        <table id="application"></table>
+    </div>
+    <span id="alert1"></span> <br>
+    <select id="ids"></select>
+    <button id="approve">Approve</button>
+    <button id="reject">Reject</button>
+
+    <p class="intro">Please select the type and quantity of quota you want to allocate: </p>
+    <span id="alert2"></span>
+    <table id="allocate_table">
+        <tr>
+            <td align="center"><img src="image/N95 respirators.jpg" width="160" class="mask"/><p class="mask_type">N95 respirator</p></td>
+            <td align="center"><img src="image/surgical masks.jpg" width="190" class="mask"/><p class="mask_type">surgical mask</p></td>
+            <td align="center"><img src="image/surgical N95 respirators.jpg" width="170" class="mask"/><p class="mask_type">surgical N95 respirator</p></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <select class="amount" id="amount1">
+                    <option>-Quantity-</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                </select>
+            </td>
+            <td align="center">
+                <select class="amount" id="amount2">
+                    <option>-Quantity-</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                </select>
+            </td>
+            <td align="center">
+                <select class="amount" id="amount3">
+                    <option>-Quantity-</option>
+                    <option>200</option>
+                    <option>500</option>
+                    <option>1000</option>
+                    <option>2000</option>
+                    <option>5000</option>
+                    <option>10000</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br> <select id="id_r"></select>
+    <button id="allocate">Allocate</button>
+
+    <a href="assign.html" id="link_ass"><p>Click here to assign a new sales rep</p></a>
+
+    <button id="logout" onclick="logout()">Logout</button>
+
+    <script>
+
+        function printTable(arr) {
+            var table = "<tr> <th>name</th> <th>employee id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printApplication(arr) {
+            var table = "<tr> <th>id</th> <th>sales rep</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>status</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printAbnormal(arr) {
+            var table = "<tr> <th>id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>sales rep</th> <th>customer</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printOption(arr) {
+            var option = "<option>-Select-</option>";
+            for(var i in arr){
+                option += "<option>" + arr[i] + "</option>";
+            }
+            return option
+        }
+
+
+        function isSelect() {
+            var int1 = document.getElementById("amount1").value;
+            var int2 = document.getElementById("amount2").value;
+            var int3 = document.getElementById("amount3").value;
+            var name = document.getElementById("id_r").value;
+            if (int1=="-Quantity-" && int2=="-Quantity-" && int3=="-Quantity-") {
+                document.getElementById("alert2").innerHTML = "Please select the quantity you want to allocate.".fontcolor("red");
+                return false;
+            } else if (name=="-Select-") {
+                document.getElementById("alert2").innerHTML = "Please select the sales rep you want to allocate to.".fontcolor("red");
+                return false;
+            } else {
+                document.getElementById("alert2").innerHTML = "";
+                return true;
+            }
+        }
+
+        function logout() {
+            $.ajax ({
+                type:"POST",
+                url:"logout.php",
+                dataType:"TEXT",
+                success:function(data){
+                    window.location.replace("./main.html");
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"name_man.php",
+            success:function(data) {
+                document.getElementById("name").innerHTML = data;
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_rep_man.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("reps").innerHTML = "You currently have no sales representative.";
+                } else {
+                    document.getElementById("reps").innerHTML = printTable(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_abnormal_man.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("abnormal").innerHTML = "You currently have no abnormal orders.";
+                } else {
+                    document.getElementById("abnormal").innerHTML = printAbnormal(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"list_application_man.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("application").innerHTML = "You currently have no pending quota applications.";
+                } else {
+                    document.getElementById("application").innerHTML = printApplication(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"abnormal_id_man.php",
+            success:function(data){
+                document.getElementById("id_a").innerHTML = printOption(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"quota_id_man.php",
+            success:function(data){
+                document.getElementById("ids").innerHTML = printOption(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"name_reps_man.php",
+            success:function(data){
+                document.getElementById("id_r").innerHTML = printOption(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        document.getElementById("ship").onclick = function() {
+            var id = document.getElementById("id_a").value;
+            if (id == "-Select-") {
+                document.getElementById("alert0").innerHTML = "Please select an id.".fontcolor("red");
+            } else {
+                $.ajax({
+                    type:"POST",
+                    url:"abnormal_ship.php",
+                    data:{
+                        "id": id,
+                    },
+                    dataType:"JSON",
+                    success:function(data){
+                        if (data == 1) {
+                            document.getElementById("alert0").innerHTML = "Delivery was successful.".fontcolor("green");
+                        } else {
+                            alert("Unexpected error.");
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+
+        document.getElementById("approve").onclick = function() {
+            var id = document.getElementById("ids").value;
+            if (id == "-Select-") {
+                document.getElementById("alert1").innerHTML = "Please select an id.".fontcolor("red");
+            } else {
+                $.ajax({
+                    type:"POST",
+                    url:"quota_approve.php",
+                    data:{
+                        "id": id,
+                    },
+                    dataType:"JSON",
+                    success:function(data){
+                        if (data == 1) {
+                            document.getElementById("alert1").innerHTML = "Approved successfully.".fontcolor("green");
+                        } else {
+                            alert("Unexpected error.");
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+
+        document.getElementById("reject").onclick = function() {
+            var id = document.getElementById("ids").value;
+            if (id == "-Select-") {
+                document.getElementById("alert1").innerHTML = "Please select an id.".fontcolor("red");
+            } else {
+                $.ajax({
+                    type:"POST",
+                    url:"quota_reject.php",
+                    data:{
+                        "id": id,
+                    },
+                    dataType:"JSON",
+                    success:function(data){
+                        if (data == 1) {
+                            document.getElementById("alert1").innerHTML = "Rejected successfully.".fontcolor("green");
+                        } else {
+                            alert("Unexpected error.");
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+
+        document.getElementById("allocate").onclick = function() {
+            var quota1 = document.getElementById("amount1").value;
+            var quota2 = document.getElementById("amount2").value;
+            var quota3 = document.getElementById("amount3").value;
+            var name = document.getElementById("id_r").value;
+            if (isSelect()) {
+                $.ajax({
+                    type:"POST",
+                    url:"quota_allocate.php",
+                    dataType:"JSON",
+                    data:{
+                        "quota1": quota1,
+                        "quota2": quota2,
+                        "quota3": quota3,
+                        "name": name,
+                    },
+                    success:function(data){
+                        if (data == 1) {
+                            document.getElementById("alert2").innerHTML = "The quota allocation is successful.".fontcolor("green");
+                        } else {
+                            alert("Unexpected error.");
+                        }
+                    },
+                    error:function() {
+                        alert("Unexpected error.");
+                    }
+                })
+            }
+        }
+
+    </script>
+</body>
+</html>

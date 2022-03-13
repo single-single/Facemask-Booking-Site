@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>order</title>
+    <link rel = "stylesheet" type = "text/css" href = "customer.css">
+    <script type = "text/javascript" src="../published/jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div id="logo">
+        <a href="main.html"><img src="image/logo.jpg" width="15%"/></a>
+    </div>
+    <HR align=center width="100%" color=#1A1A1A SIZE=1>
+
+    <div id="buy">
+        <a href="customer.html"><img src="image/order.png" width="5%"/></a>
+        <a href="customer.html">Buy Now</a>
+    </div>
+    <p class="intro">The following are your orders: </p>
+    <div>
+        <table id="ords"></table>
+    </div>
+    <p class="intro">The following are the cancelled orders: </p>
+    <div>
+        <table id="cancel"></table>
+    </div>
+    <p class="intro">Please select the order you want to cancel: </p>
+    <span id="alert"></span> <br>
+    <select id="ids"></select>
+    <button id="go">Cancel</button>
+
+    <script>
+
+        function printTable(arr){
+            var table = "<tr> <th>id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>sales rep</th> <th>time</th> <th>status</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printTable_can(arr){
+            var table = "<tr> <th>id</th> <th>N95 respirators</th> <th>surgical masks</th> <th>surgical N95 respirators</th> <th>sales rep</th> <th>time</th> <th>cancellation</th> </tr>";
+            for(var i in arr){
+                table += "<tr>";
+                for(var j in arr[i]){
+                    table += "<td>" + arr[i][j] + "</td>";
+                }
+                table += "</tr>";
+            }
+            return table
+        }
+
+        function printOption(arr){
+            var option = "<option>-Select-</option>";
+            for(var i in arr){
+                option += "<option>" + arr[i] + "</option>";
+            }
+            return option
+        }
+
+        function isCompleted(id) {
+            var complete = "";
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"order_completed.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data){
+                    complete = data;
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+            return complete
+        }
+
+        function diffTime(id) {
+            var diff = "";
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"time_diff.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data){
+                    diff = data;
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+            return diff
+        }
+
+        function cancel_order(id) {
+            $.ajax ({
+                async:false,
+                type:"POST",
+                url:"order_cancel_cus.php",
+                data:{
+                    "id": id,
+                },
+                success:function(data) {
+                    if (data == 0) {
+                        document.getElementById("alert").innerHTML = "Cancel success.".fontcolor("green");
+                    } else {
+                        alert("Unexpected error.");
+                    }
+                },
+                error:function() {
+                    alert("Unexpected error.");
+                }
+            })
+        }
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"order_cus.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("ords").innerHTML = "You currently have no order records.";
+                } else {
+                    document.getElementById("ords").innerHTML = printTable(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"order_cus_cancel.php",
+            success:function(data){
+                if (data == "") {
+                    document.getElementById("cancel").innerHTML = "You currently have no record of cancelled orders.";
+                } else {
+                    document.getElementById("cancel").innerHTML = printTable_can(data);
+                }
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        $.ajax ({
+            async:false,
+            type:"GET",
+            url:"order_id_cus.php",
+            success:function(data){
+                document.getElementById("ids").innerHTML = printOption(data);
+            },
+            error:function() {
+                alert("Unexpected error.");
+            }
+        })
+
+        document.getElementById("go").onclick = function() {
+            var id = document.getElementById("ids").value;
+            if (id == "-Select-") {
+                document.getElementById("alert").innerHTML = "Please select an id.".fontcolor("red");
+            } else if (isCompleted(id) == 1) {
+                document.getElementById("alert").innerHTML = "The order has been completed and cannot be cancelled.".fontcolor("red");
+            } else if (diffTime(id) == 1) {
+                document.getElementById("alert").innerHTML = "The order has been over 24 hours and cannot be cancelled.".fontcolor("red");
+            } else {
+                cancel_order(id);
+            }
+        }
+
+    </script>
+</body>
+</html>
